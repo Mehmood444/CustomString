@@ -3,8 +3,8 @@
 CustomString::CustomString(TCHAR *str) {
 	if (str == nullptr) return;
 
-	if (length != 0) {
-		memset(this->myString, '\0', (length+1) * sizeof(TCHAR));
+	if (this->length != 0) {
+		memset(this->myString, '\0', (this->length+1) * sizeof(TCHAR));
 		free(this->myString);
 	}
 
@@ -12,23 +12,35 @@ CustomString::CustomString(TCHAR *str) {
 	this->myString = (char *)malloc((newLen + 1) * sizeof(TCHAR));
 	memset(this->myString, '\0', (newLen+1) * sizeof(TCHAR));
 	_tcsncpy(this->myString, str, newLen);
-	length = newLen;
+	this->length = newLen;
 }
 
-CustomString::CustomString(CustomString& newCS) {
-	// NULL Pointer Check
+CustomString::CustomString(CustomString& cs) {
+	// Self Pointer Check
 	// newCS.length Check
+	if (cs.length == 0) return;
+
+	if (this->length){
+		memset(this->myString, '\0', (this->length + 1) * sizeof(TCHAR));
+		free(this->myString);
+	}
+
+	this->myString = (TCHAR *)malloc((cs.length + 1) * sizeof(TCHAR));
+	memset(this->myString, '\0', (cs.length + 1) * sizeof(TCHAR));
+	
+	_tcsncpy(this->myString, cs.getValue(), cs.length);
+	this->length = cs.length;
 }
 
 CustomString::~CustomString() {
-	if (length != 0) {
-		memset(myString, '\0', length);
-		free(myString);
+	if (this->length != 0) {
+		memset(this->myString, '\0', (this->length+1) * sizeof(TCHAR));
+		free(this->myString);
 	}
 }
 
 TCHAR *CustomString::getValue() {
-	if (length == 0) exit(1);
+	if (this->length == 0) exit(1);
 	return this->myString;
 }
 
@@ -36,18 +48,33 @@ CustomString& CustomString::operator+ (CustomString& cs) {
 	// Null Pointer Check
 	// Self Pointer Check
 	// Length Check
-	TCHAR *newString;
-	unsigned int newLength = _tcslen(this->myString) + _tcslen(cs.getValue());
-	newString = (TCHAR *)malloc((newLength + 1) * sizeof(TCHAR));
-	memset(newString, '\0', newLength + 1);
-	_tcscpy(newString, this->myString);
-	_tcscat(newString, cs.getValue());
+	CustomString *ret = new CustomString();
 
-	memset(this->myString, '\0', length);
-	free(this->myString);
+	unsigned int newLength = this->length + cs.length;
+	ret->myString = (TCHAR *)malloc((newLength + 1) * sizeof(TCHAR));
+	memset(ret->myString, '\0', (newLength + 1) * sizeof(TCHAR));
+	_tcscpy(ret->myString, this->myString);
+	_tcscat(ret->myString, cs.getValue());
+	ret->length = newLength;
 
-	this->myString = newString;
-	length = newLength;
+	return *ret;
+}
 
-	return *this;
+void CustomString::operator= (CustomString& cs) {
+	// Null Check
+	// Length Check
+	if (cs.length == 0) return;
+	if (this->length) {
+		memset(this->myString, '\0', (this->length + 1) * sizeof(TCHAR));
+		free(this->myString);
+		this->length = 0;
+	}
+	
+	this->myString = (TCHAR *)malloc((cs.length + 1) * sizeof(TCHAR));
+	memset(this->myString, '\0', (cs.length + 1) * sizeof(TCHAR));
+
+	_tcsncpy(this->myString, cs.getValue(), cs.length);
+	this->length = cs.length;
+
+	return;
 }

@@ -22,5 +22,11 @@ public:
 		return out;
 	}
 
+	friend CustomString& operator<< (CustomString& cs, TCHAR *str) {
+		CustomString ret = cs + CustomString(str);
+		return ret;
+	}
+
 	CustomString& operator+ (CustomString& cs);
+	void operator= (CustomString& cs);
 };
