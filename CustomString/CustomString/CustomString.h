@@ -10,23 +10,32 @@ private:
 	unsigned int length;
 
 public:
+	// Constructor
 	CustomString() {}
 	CustomString(TCHAR *str);
 	CustomString(CustomString&);
-
+	// Destructor
 	~CustomString();
-	TCHAR *getValue();
 
+	// Operator overloading
+	CustomString& operator= (TCHAR *str);
+	CustomString& operator= (CustomString& cs);
+	CustomString& operator+ (CustomString& cs);
 	friend std::ostream& operator<< (std::ostream &out, CustomString& cs) {
 		out << cs.getValue();
 		return out;
 	}
-
 	friend CustomString& operator<< (CustomString& cs, TCHAR *str) {
 		CustomString ret = cs + CustomString(str);
 		return ret;
 	}
+	
+	
+	// Getter
+	TCHAR *getValue();
+	unsigned int getLength();
 
-	CustomString& operator+ (CustomString& cs);
-	void operator= (CustomString& cs);
+	// Setter
+
+	void setLength(unsigned int newLength);
 };
