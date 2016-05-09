@@ -33,7 +33,7 @@ void Test2() {
 
 void Test3() {
 	CustomString cs1;
-	cs1 = "Hello, World!";
+	cs1 = "TEST 3 SUCCESS";
 	cout << cs1.getValue();
 	cout << endl;
 }
