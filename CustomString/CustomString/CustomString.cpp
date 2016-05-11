@@ -154,6 +154,30 @@ bool CustomString::operator!=(CustomString& cs) {
 	return !(*this == cs);
 }
 
+bool CustomString::operator>(TCHAR *str) {
+	if (str == nullptr) return false;
+	int res = _tcscmp(this->myString, str);
+	if (res > 0) return true;
+	else return false;
+}
+
+bool CustomString::operator>(CustomString& cs) {
+	if (cs == nullptr || &cs == this) return false;
+	return *this > cs.getValue();
+}
+
+bool CustomString::operator<(TCHAR *str) {
+	if (str == nullptr) return false;
+	int res = _tcscmp(str, this->myString);
+	if (res > 0) return true;
+	else return false;
+}
+
+bool CustomString::operator<(CustomString& cs) {
+	if (cs == nullptr || &cs == this) return false;
+	return *this < cs.getValue();
+}
+
 // Getter
 
 TCHAR *CustomString::getValue() {
