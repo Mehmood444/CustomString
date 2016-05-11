@@ -2,7 +2,7 @@
 
 // Constructor
 
-CustomString::CustomString(TCHAR *str) {
+CustomString::CustomString(TCHAR *str) : myString(nullptr), length(0) {
 	if (str == nullptr) return;
 
 	if (this->length != 0) {
@@ -14,7 +14,7 @@ CustomString::CustomString(TCHAR *str) {
 	_tcsncpy(this->myString, str, this->length + 1);
 }
 
-CustomString::CustomString(CustomString& cs) {
+CustomString::CustomString(CustomString& cs) : myString(nullptr), length(0)	{
 	// Self Pointer Check
 	// newCS.length Check
 	if (&cs == this) return;
@@ -104,6 +104,25 @@ CustomString& CustomString::operator+=(TCHAR *str) {
 	this->myString = (TCHAR *)malloc((strLength + 1) * sizeof(TCHAR));
 	_tcscpy(this->myString, newString);
 	_tcscat(this->myString, str);
+	this->length = strLength;
+	
+	return *this;
+}
+
+CustomString& CustomString::operator+=(CustomString& cs) {
+	if (&cs == this || &cs == nullptr) return *this;
+
+	unsigned int strLength = this->length + cs.getLength();
+	TCHAR *newString = (TCHAR *)malloc((strLength + 1) * sizeof(TCHAR));
+	if (this->length) {
+		_tcscpy(newString, this->myString);
+		free(this->myString);
+		this->length = 0;
+	}
+
+	this->myString = (TCHAR *)malloc((strLength + 1) * sizeof(TCHAR));
+	_tcscpy(this->myString, newString);
+	_tcscat(this->myString, cs.getValue());
 	this->length = strLength;
 
 	return *this;

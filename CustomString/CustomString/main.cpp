@@ -11,6 +11,8 @@ void Test3();
 void Test4();
 void Test5();
 void Test6();
+void Test7();
+void Test8();
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +20,10 @@ int main(int argc, char *argv[])
 	Test2();
 	Test3();
 	Test4();
-	Test5(); // Error Occured
+	Test5();
 	Test6();
+	Test7();
+	Test8();
 	system("pause");
 	return 0;
 }
@@ -63,6 +67,21 @@ void Test6() {
 	CustomString cs1("[*] TEST 6 ");
 	CustomString cs2("SUCCESS");
 	cs1 = cs1 + cs2;
+	cout << cs1;
+	cout << endl;
+}
+
+void Test7() {
+	CustomString cs1("[*] Test 7 ");
+	cs1 += "SUCCESS";
+	cout << cs1;
+	cout << endl;
+}
+
+void Test8() {
+	CustomString cs1("[*] Test 8 ");
+	CustomString cs2("SUCCESS");
+	cs1 += cs2;
 	cout << cs1;
 	cout << endl;
 }
