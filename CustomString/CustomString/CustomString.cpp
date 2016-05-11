@@ -57,7 +57,8 @@ CustomString& CustomString::operator= (TCHAR *str) {
 CustomString& CustomString::operator= (CustomString& cs) {
 	// Null Check
 	// Length Check
-	if (cs.getLength() == 0) return *this;
+	// Self Pointer Check
+	if (&cs == nullptr || &cs == this || cs.getLength() == 0) return *this;
 
 	if (this->length) {
 		free(this->myString);
@@ -72,23 +73,13 @@ CustomString& CustomString::operator= (CustomString& cs) {
 }
 
 CustomString CustomString::operator+ (TCHAR *str) {
-	if (str == nullptr) return *this;
 	CustomString ret(*this);
 	return ret+=str;	
 }
 
 CustomString CustomString::operator+ (CustomString& cs) {
-	// Null Pointer Check
-	// Self Pointer Check
-	// Length Check
-	if (cs.getLength() == 0) return *this;
-	TCHAR *newString = (TCHAR *)malloc((this->length + cs.getLength() + 1) * sizeof(TCHAR));
-	_tcscpy(newString, this->myString);
-	_tcscat(newString, cs.getValue());
-	CustomString ret(newString);
-	free(newString);
-
-	return ret;
+	CustomString ret(*this);
+	return ret += cs;
 }
 
 CustomString& CustomString::operator+=(TCHAR *str) {
@@ -110,7 +101,7 @@ CustomString& CustomString::operator+=(TCHAR *str) {
 }
 
 CustomString& CustomString::operator+=(CustomString& cs) {
-	if (&cs == this || &cs == nullptr) return *this;
+	if (&cs == this || &cs == nullptr || cs.getLength() == 0) return *this;
 
 	unsigned int strLength = this->length + cs.getLength();
 	TCHAR *newString = (TCHAR *)malloc((strLength + 1) * sizeof(TCHAR));
@@ -194,18 +185,53 @@ bool CustomString::operator>=(CustomString& cs) {
 	return (*this == cs || *this > cs);
 }
 
-
 // Getter
 
 TCHAR *CustomString::getValue() {
-	if (this->length == 0) exit(1);
+	if (this->length == 0) exit(1);	// need update
 	return this->myString;
 }
 
-unsigned int CustomString::getLength() {
+int CustomString::getLength() {
 	return this->length;
 }
 
-void CustomString::setLength(unsigned int newLength) {
-	this->length = newLength;
+// Functions
+
+CustomString CustomString::reverse() {
+	if (this->length == 0) exit(1);	// need update
+	TCHAR *newString = (TCHAR *)malloc((this->length + 1) * sizeof(TCHAR));
+	for (int i = 0; i < this->length; i++) {
+		newString[i] = this->myString[this->length - i - 1];
+	} newString[this->length] = '\0';
+	CustomString ret(newString);
+	free(newString);
+	return ret;
 }
+
+int CustomString::find(char ch) {
+	if (this->length == 0) exit(1);	// need update
+	for (int i = 0; i < this->length; i++) {
+		if (this->myString[i] == ch) return i;
+	}
+	return -1;
+}
+
+int CustomString::find(char ch, int offset) {
+	if (this->length == 0 || this->length < offset) exit(1);	// need update
+	for (int i = 0; i < this->length - offset; i++) {
+		if (this->myString[offset + i] == ch) return offset + i;
+	}
+	return -1;
+}
+
+int CustomString::find(char *str) {
+	if (this->length == 0) exit(1);	// need update
+	return 1;
+}
+
+int CustomString::find(char *str, int offset) {
+	if (this->length == 0) exit(1);	// need update
+	return 1;
+}
+

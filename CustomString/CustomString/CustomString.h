@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +8,7 @@
 class CustomString {
 private:
 	TCHAR *myString;
-	unsigned int length;
+	int length;
 
 public:
 	// Constructor 
@@ -49,10 +50,15 @@ public:
 	}
 	
 	// Getter
+
 	TCHAR *getValue();
-	unsigned int getLength();
+	int getLength();
 
-	// Setter
+	// Functions
 
-	void setLength(unsigned int newLength);
+	CustomString reverse();
+	int find(char ch);
+	int find(char ch, int offset);
+	int find(char *str);
+	int find(char *str, int offset);
 };
