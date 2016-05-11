@@ -128,6 +128,32 @@ CustomString& CustomString::operator+=(CustomString& cs) {
 	return *this;
 }
 
+bool CustomString::operator==(TCHAR *str) {
+	if (str == nullptr) return false;
+	unsigned int strLength = _tcslen(str);
+	
+	if (this->length != strLength) return false;
+	else if (this->length == 0) return true;
+
+	if (!_tcscmp(this->myString, str)) return true;
+	else return false;
+}
+
+bool CustomString::operator==(CustomString& cs) {
+	if (&cs == this) return true;
+	if (&cs == nullptr) return false;
+
+	return *this == cs.getValue();
+}
+
+bool CustomString::operator!=(TCHAR *str) {
+	return !(*this == str);
+}
+
+bool CustomString::operator!=(CustomString& cs) {
+	return !(*this == cs);
+}
+
 // Getter
 
 TCHAR *CustomString::getValue() {

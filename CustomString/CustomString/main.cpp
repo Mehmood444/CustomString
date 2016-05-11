@@ -13,6 +13,8 @@ void Test5();
 void Test6();
 void Test7();
 void Test8();
+void Test9();
+void Test10();
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +26,8 @@ int main(int argc, char *argv[])
 	Test6();
 	Test7();
 	Test8();
+	Test9();
+	Test10();
 	system("pause");
 	return 0;
 }
@@ -84,4 +88,28 @@ void Test8() {
 	cs1 += cs2;
 	cout << cs1;
 	cout << endl;
+}
+
+void Test9() {
+	CustomString cs1("TEST");
+	if (cs1 == "TEST" && cs1 != "TesT") {
+		cout << "[*] Test 9 SUCCESS" << endl;
+	}
+	else {
+		cout << "[*] Test 9 Failed" << endl;
+		exit(1);
+	}
+}
+
+void Test10() {
+	CustomString cs1("TEST");
+	CustomString cs2("TEST");
+	CustomString cs3("TesT");
+	if (cs1 == cs2 && cs1 != cs3) {
+		cout << "[*] Test 10 SUCCESS" << endl;
+	}
+	else {
+		cout << "[*] Test 10 Failed" << endl;
+		exit(1);
+	}
 }
