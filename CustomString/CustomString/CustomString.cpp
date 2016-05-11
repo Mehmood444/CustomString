@@ -178,6 +178,23 @@ bool CustomString::operator<(CustomString& cs) {
 	return *this < cs.getValue();
 }
 
+bool CustomString::operator<=(TCHAR *str) {
+	return (*this == str || *this < str);
+}
+
+bool CustomString::operator<=(CustomString& cs) {
+	return (*this == cs || *this < cs);
+}
+
+bool CustomString::operator>=(TCHAR *str) {
+	return (*this == str || *this > str);
+}
+
+bool CustomString::operator>=(CustomString& cs) {
+	return (*this == cs || *this > cs);
+}
+
+
 // Getter
 
 TCHAR *CustomString::getValue() {

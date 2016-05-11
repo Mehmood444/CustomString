@@ -17,6 +17,7 @@ void Test9();
 void Test10();
 void Test11();
 void Test12();
+void Test13();
 
 int main(int argc, char *argv[])
 {
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
 	Test10();
 	Test11();
 	Test12();
+	Test13();
 	system("pause");
 	return 0;
 }
@@ -140,4 +142,16 @@ void Test12(){
 		exit(1);
 	}
 
+}
+
+void Test13() {
+	CustomString cs1("ABCD");
+	CustomString cs2("BCDE");
+	if (cs1 <= "BCDE" && cs2 >= cs1) {
+		cout << "[*] Test 13 SUCCESS" << endl;
+	}
+	else {
+		cout << "[*] Test 13 Failed" << endl;
+		exit(1);
+	}
 }

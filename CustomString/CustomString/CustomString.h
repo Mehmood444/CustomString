@@ -33,6 +33,10 @@ public:
 	bool operator>(CustomString& cs);
 	bool operator<(TCHAR *str);
 	bool operator<(CustomString& cs);
+	bool operator<=(TCHAR *str);
+	bool operator<=(CustomString& cs);
+	bool operator>=(TCHAR *str);
+	bool operator>=(CustomString& cs);
 
 	friend std::ostream& operator<< (std::ostream &out, CustomString& cs) {
 		out << cs.getValue();
