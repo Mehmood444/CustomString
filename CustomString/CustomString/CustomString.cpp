@@ -73,15 +73,8 @@ CustomString& CustomString::operator= (CustomString& cs) {
 
 CustomString CustomString::operator+ (TCHAR *str) {
 	if (str == nullptr) return *this;
-
-	unsigned int strLength = _tcslen(str);
-	TCHAR *newString = (TCHAR *)malloc((this->length + strLength + 1) * sizeof(TCHAR));
-	_tcscpy(newString, this->myString);
-	_tcscat(newString, str);
-	CustomString ret(newString);
-	free(newString);
-
-	return ret;	
+	CustomString ret(*this);
+	return ret+=str;	
 }
 
 CustomString CustomString::operator+ (CustomString& cs) {
@@ -98,11 +91,10 @@ CustomString CustomString::operator+ (CustomString& cs) {
 	return ret;
 }
 
-CustomString CustomString::operator+=(TCHAR *str) {
+CustomString& CustomString::operator+=(TCHAR *str) {
 	if (str == nullptr) return *this;
-	
 	unsigned int strLength = this->length + _tcslen(str);
-	TCHAR *newString = (TCHAR *)malloc((this->length + 1) * sizeof(TCHAR));
+	TCHAR *newString = (TCHAR *)malloc((strLength + 1) * sizeof(TCHAR));
 	if (this->length) {
 		_tcscpy(newString, this->myString);
 		free(this->myString);
@@ -113,7 +105,7 @@ CustomString CustomString::operator+=(TCHAR *str) {
 	_tcscpy(this->myString, newString);
 	_tcscat(this->myString, str);
 	this->length = strLength;
-	
+
 	return *this;
 }
 

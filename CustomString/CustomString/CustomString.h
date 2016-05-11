@@ -6,8 +6,8 @@
 
 class CustomString {
 private:
-	TCHAR *myString;
-	unsigned int length;
+	TCHAR *myString = nullptr;
+	unsigned int length = 0;
 
 public:
 	// Constructor 
@@ -22,7 +22,7 @@ public:
 	CustomString& operator= (CustomString& cs);
 	CustomString operator+ (TCHAR *str);
 	CustomString operator+ (CustomString& cs);
-	CustomString operator+=(TCHAR *str);
+	CustomString& operator+=(TCHAR *str);
 
 
 	friend std::ostream& operator<< (std::ostream &out, CustomString& cs) {
