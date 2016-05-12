@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 	Test13();
 	Test14();
 	Test15();
+	Test16();
 	system("pause");
 	return 0;
 }

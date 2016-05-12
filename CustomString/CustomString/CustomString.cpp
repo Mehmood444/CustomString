@@ -227,11 +227,12 @@ int CustomString::find(char ch, int offset) {
 
 int CustomString::find(char *str) {
 	if (this->length == 0) exit(1);	// need update
-	return 1;
+	return (_tcsstr(this->myString, str) - this->myString);
 }
 
 int CustomString::find(char *str, int offset) {
-	if (this->length == 0) exit(1);	// need update
+	if (this->length == 0 || this->length < offset) exit(1);	// need update
+	return (_tcsstr(this->myString + offset, str) - this->myString);
 	return 1;
 }
 

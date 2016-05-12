@@ -137,3 +137,13 @@ void Test15() {
 		failed(15);
 	}
 }
+
+void Test16() {
+	CustomString cs1("ABCAAAAAAAAAAAABC");
+	if (cs1.find("ABC", 3) == 14) {
+		cout << "[*] Test 16 SUCCESS" << endl;
+	}
+	else {
+		failed(16);
+	}
+}
