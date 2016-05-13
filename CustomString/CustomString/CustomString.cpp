@@ -209,7 +209,49 @@ CustomString CustomString::reverse() {
 	return ret;
 }
 
-int CustomString::find(char ch) {
+CustomString CustomString::left(int count) {
+	if (this->length == 0 || this->length < (count)) exit(1);	// need update
+	TCHAR *newString = (TCHAR *)malloc((count + 1) * sizeof(TCHAR));
+	_tcsncpy(newString, this->myString, count);
+	newString[count] = '\0';
+	CustomString ret(newString);
+	free(newString);
+	return ret;
+}
+
+CustomString CustomString::mid(int offset, int count) {
+	if (this->length == 0 || this->length < (offset + count)) exit(1);	// need update
+	TCHAR *newString = (TCHAR *)malloc((count + 1) * sizeof(TCHAR));
+	_tcsncpy(newString, this->myString + offset, count);
+	newString[count] = '\0';
+	CustomString ret(newString);
+	free(newString);
+	return ret;
+}
+
+CustomString CustomString::right(int count) {
+	if (this->length == 0 || this->length < (count)) exit(1);	// need update
+	TCHAR *newString = (TCHAR *)malloc((count + 1) * sizeof(TCHAR));
+	_tcsncpy(newString, this->myString + this->length - count, count);
+	newString[count] = '\0';
+	CustomString ret(newString);
+	free(newString);
+	return ret;
+}
+
+CustomString CustomString::replace(TCHAR *from, TCHAR *to) {
+	if (from == nullptr || to == nullptr || this->length == 0) exit(1); // need update
+	if (!find(from)) return *this;
+	int offset = 0;
+	int offset2 = 0;
+	TCHAR *newString = (TCHAR *)malloc(this->length * sizeof(TCHAR) * _tcslen(to));
+	newString[0] = '\0';
+	while (offset = find(from, offset)) {
+		_tcsncat(newString, this->myString + offset2, offset2 - offset);
+	}
+}
+
+int CustomString::find(TCHAR ch) {
 	if (this->length == 0) exit(1);	// need update
 	for (int i = 0; i < this->length; i++) {
 		if (this->myString[i] == ch) return i;
@@ -217,7 +259,7 @@ int CustomString::find(char ch) {
 	return -1;
 }
 
-int CustomString::find(char ch, int offset) {
+int CustomString::find(TCHAR ch, int offset) {
 	if (this->length == 0 || this->length < offset) exit(1);	// need update
 	for (int i = 0; i < this->length - offset; i++) {
 		if (this->myString[offset + i] == ch) return offset + i;
@@ -225,14 +267,23 @@ int CustomString::find(char ch, int offset) {
 	return -1;
 }
 
-int CustomString::find(char *str) {
+int CustomString::find(TCHAR *str) {
 	if (this->length == 0) exit(1);	// need update
 	return (_tcsstr(this->myString, str) - this->myString);
 }
 
-int CustomString::find(char *str, int offset) {
+int CustomString::find(TCHAR *str, int offset) {
 	if (this->length == 0 || this->length < offset) exit(1);	// need update
 	return (_tcsstr(this->myString + offset, str) - this->myString);
 	return 1;
+}
+
+TCHAR CustomString::at(int offset) {
+	if (this->length == 0 || this->length < offset) exit(1);	// need update
+	return this->myString[offset];
+}
+
+void CustomString::clear() {
+	if (this->length) free(myString);
 }
 

@@ -21,3 +21,5 @@ void Test13();
 void Test14();
 void Test15();
 void Test16();
+void Test17();
+void Test18();

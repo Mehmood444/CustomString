@@ -57,8 +57,14 @@ public:
 	// Functions
 
 	CustomString reverse();
-	int find(char ch);
-	int find(char ch, int offset);
-	int find(char *str);
-	int find(char *str, int offset);
+	CustomString left(int count);
+	CustomString mid(int offset, int count);
+	CustomString right(int count);
+	CustomString replace(TCHAR *from, TCHAR *to);
+	int find(TCHAR ch);
+	int find(TCHAR ch, int offset);
+	int find(TCHAR *str);
+	int find(TCHAR *str, int offset);
+	TCHAR at(int offset);
+	void clear();
 };

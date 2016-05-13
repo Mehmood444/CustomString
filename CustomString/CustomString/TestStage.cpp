@@ -147,3 +147,16 @@ void Test16() {
 		failed(16);
 	}
 }
+
+void Test17() {
+	CustomString cs1("AAAAA[*] Test 17 SUCCESSBBBBB");
+	CustomString cs2 = cs1.mid(5, 19);
+	cout << cs2 << endl;
+}
+
+void Test18() {
+	CustomString cs1("AAAAA[*] Test 18 ");
+	CustomString cs2("SUCCESSBBBBB");
+	CustomString cs3 = cs1.right(12) + cs2.left(7);
+	cout << cs3 << endl;
+}
