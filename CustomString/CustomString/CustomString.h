@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 #include <wchar.h>
 #include <tchar.h>
 
@@ -60,7 +61,7 @@ public:
 	CustomString left(int count);
 	CustomString mid(int offset, int count);
 	CustomString right(int count);
-	CustomString replace(TCHAR *from, TCHAR *to);
+	//CustomString replace(TCHAR *from, TCHAR *to);
 	int find(TCHAR ch);
 	int find(TCHAR ch, int offset);
 	int find(TCHAR *str);
