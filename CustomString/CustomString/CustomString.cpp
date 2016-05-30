@@ -17,7 +17,7 @@ CustomString::CustomString(TCHAR *str) : myString(nullptr), length(0) {
 CustomString::CustomString(CustomString& cs) : myString(nullptr), length(0)	{
 	// Self Pointer Check
 	// newCS.length Check
-	if (&cs == this) return;
+	if (&cs == this || &cs == nullptr) return;
 	if (cs.getLength() == 0) return;
 
 	if (this->length){	// Initialize
